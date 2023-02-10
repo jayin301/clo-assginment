@@ -1,5 +1,5 @@
 // import express, { Application, Request, Response } from "express";
-// import cors from "cors";
+// // import cors from "cors";
 // import dotenv from "dotenv";
 
 // // configurations
@@ -14,7 +14,7 @@
 // const base: string = process.env.base_url ?? "/api/v1";
 
 // // middlewares
-// app.use(cors());
+// // app.use(cors());
 // app.use(express.json());
 // app.use(express.urlencoded({ extended: false }));
 
@@ -39,15 +39,49 @@ import express, { Express, Request, Response } from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 
+import bodyParser from "body-parser";
+import swaggerUi from "swagger-ui-express";
+import swaggerJsdoc from "swagger-jsdoc";
+
 dotenv.config();
 
 const app: Express = express();
 const port = process.env.PORT;
 const MONGO_URI = process.env.MONGO_URI ?? "";
 
+const options = {
+  definition: {
+    openapi: "3.0.0",
+    info: {
+      title: "Node Express API with Swagger",
+      version: "0.1.0",
+      description:
+        "clo-assignment result API with Express and documented with Swagger",
+      license: {
+        name: "MIT",
+        url: "https://spdx.org/licenses/MIT.html",
+      },
+      contact: {
+        name: "jeonghwa min",
+        email: "mocajay.jh@gmail.com",
+      },
+    },
+    servers: [
+      {
+        url: "http://localhost:8888/",
+      },
+    ],
+  },
+  apis: ["./dist/modules/app/routes.js"],
+};
+
+const specs = swaggerJsdoc(options);
+
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
 
 mongoose.Promise = global.Promise;
 const db = mongoose
@@ -74,10 +108,6 @@ database.once("connected", () => {
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Express + TypeScript Server hello");
-});
-
-app.get("/hello", (req: Request, res: Response) => {
-  res.send("Hello world");
 });
 
 app.listen(port, () => {
