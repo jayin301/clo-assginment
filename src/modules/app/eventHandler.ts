@@ -1,6 +1,6 @@
 import client from "../../config/redis";
-import employeeEventHandler from "../employees/employee.events";
-import { IEmployee, IEmployeeCommand } from "../employees/employee.types";
+import employeeEventHandler from "../employee/employee.events";
+import { IEmployee, IEmployeeCommand } from "../employee/employee.types";
 import { convertArrayParametersToObject } from "./helper";
 import logger from "../../config/logger";
 

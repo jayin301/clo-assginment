@@ -1,5 +1,5 @@
 import express from "express";
-import EmployeeRoute from "../employees/employee.route";
+import EmployeeRoute from "../employee/employee.route";
 
 /**
  * @swagger
