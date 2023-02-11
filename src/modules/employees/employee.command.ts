@@ -6,8 +6,6 @@ import { AddEmployeeDTO } from "./employee.types";
 
 class EmployeeCommandHandler {
   async addEmployee(payload: AddEmployeeDTO) {
-    console.log(payload);
-    console.log("hello");
     const { name, email, tel, joined } = payload;
 
     const employee = await getEmployeeModel.findOne({ email }).lean();
@@ -19,13 +17,20 @@ class EmployeeCommandHandler {
       joined,
       command: "add",
     };
-    const parameters = convertObjectToParameters(employeeData);
-    await client.sendCommand(["XADD", "employee_stream", "*", ...parameters]);
+    await client.sendCommand([
+      "XADD",
+      "employee_stream",
+      "*",
+      ...convertObjectToParameters(employeeData),
+    ]);
     eventHandler.employeeHandler(employeeData);
   }
 
   async addEmployees(payload: AddEmployeeDTO[]) {
-    await Promise.all(payload.map((data) => this.addEmployee(data)));
+    for (const employee of payload) {
+      this.addEmployee(employee);
+    }
+    // await Promise.all(payload.map((data) => this.addEmployee(data)));
   }
 }
 
