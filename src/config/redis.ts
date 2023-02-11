@@ -1,5 +1,6 @@
 import { createClient } from "redis";
 import dotenv from "dotenv";
+import logger from "./logger";
 
 dotenv.config();
 
@@ -8,11 +9,11 @@ const client = createClient({
   legacyMode: true,
 });
 
-client.on("error", (err) => console.log("Redis Client Error", err));
+client.on("error", (err) => logger.info("Redis Client Error", err));
 
 (async () => {
   await client.connect();
-  console.log("Cache is connected and ready");
+  logger.info("Cache is connected and ready");
 })();
 
 client.connect().then();

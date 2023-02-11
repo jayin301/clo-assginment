@@ -2,6 +2,7 @@ import client from "../../config/redis";
 import employeeEventHandler from "../employees/employee.events";
 import { IEmployee, IEmployeeCommand } from "../employees/employee.types";
 import { convertArrayParametersToObject } from "./helper";
+import logger from "../../config/logger";
 
 const employeeEvent = new employeeEventHandler();
 
@@ -43,7 +44,7 @@ class EventHandler {
       const employees = await this.getEmployeeRecord();
       await employeeEvent.updateEmployees(employees);
     } catch (error) {
-      console.log(error);
+      logger.error(error);
     }
   }
 }

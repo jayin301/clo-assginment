@@ -8,7 +8,8 @@ import {
 import { AddEmployeeDTO } from "./employee.types";
 import Papa from "papaparse";
 import * as fs from "fs";
-import path, { join } from "path";
+import logger from "../../config/logger";
+import path from "path";
 
 class EmployeeController {
   async addEmployees(request: Request, response: Response) {
@@ -53,7 +54,7 @@ class EmployeeController {
         message: "Employee successfully added",
       });
     } catch (error: any) {
-      console.log(error);
+      logger.error(error);
       response.status(500).json({
         error: error?.message,
       });
@@ -69,7 +70,7 @@ class EmployeeController {
         message: "Employee successfully added",
       });
     } catch (error: any) {
-      console.log(error);
+      logger.error(error);
       response.status(500).json({
         error: error?.message,
       });
@@ -89,7 +90,7 @@ class EmployeeController {
         data: employees,
       });
     } catch (error: any) {
-      console.log(error);
+      logger.error(error);
       response.status(500).json({
         error: error?.message,
       });
@@ -105,7 +106,7 @@ class EmployeeController {
         data: employee,
       });
     } catch (error: any) {
-      console.log(error);
+      logger.error(error);
       response.status(500).json({
         error: error?.message,
       });
