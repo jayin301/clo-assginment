@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import getEmployeesModel from "./models/getEmployees";
 import getEmployeeModel from "./models/getEmployee";
 import employeeCommandHandler from "./employee.command";
 import {
