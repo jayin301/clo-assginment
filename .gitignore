@@ -1,4 +1,11 @@
 node_modules
-dist
+
+##environment file
 .env
+
+##서버에 업로드된 파일 저장 경로
 uploads
+
+##logger and js dist
+logs
+dist
