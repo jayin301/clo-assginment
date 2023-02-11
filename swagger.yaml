@@ -1,0 +1,82 @@
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: Node Express API with Swagger
+  description: clo-assignment result API with Express and documented with Swagger
+  contact:
+    name: jeonghwa min
+    email: mocajay.jh@gmail.com
+  license:
+    name: MIT
+servers:
+  - url: http://localhost:8888/
+tags:
+- name: "employee"
+  description: "employee info"
+
+schemes:
+- "https"
+basePath: './dist'
+paths:
+  /api/employee:
+    get:
+      tags:
+      - "employee"
+      summary: "Get employees info"
+      description: ""
+      operationId: "getEmployees"
+      parameters:
+      - in: "query"
+        name: "page"
+        description: "page number"
+        required: false
+      - in: "query"
+        name: "pageSize"
+        description: "page size"
+        required: false
+        
+      responses:
+        '200':
+          description: 유저 리스트 조회 성공
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+    post:
+      tags:
+      - "employee"
+      summary: "Add employees info"
+      description: ""
+      requestBody:
+        required: true
+        content:
+          multipart/form:
+            schema:
+              type: file
+      responses:
+        '201':
+          description: Created
+
+  /api/employee/{name}:
+    get:
+      tags:
+      - "employee"
+      summary: "Get employee info"
+      desciprion: ""
+      parameters:
+        - name: name
+          in: path
+          required: true
+          desciption: target employee name
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 유저 조회 성공
+          content:
+            application/json:
+              schema:
+                type: object
+
