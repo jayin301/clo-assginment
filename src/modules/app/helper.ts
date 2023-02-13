@@ -1,6 +1,8 @@
-export const convertObjectToParameters = (obj: any): Array<string> => {
+import logger from "../../config/logger";
+
+export const convertObjectToParameters = (obj: any): string[] => {
   const keys = Object.keys(obj);
-  const parameters: Array<string> = [];
+  const parameters: string[] = [];
   for (let key of keys) {
     parameters.push(key);
     parameters.push(obj[key]);
@@ -8,7 +10,7 @@ export const convertObjectToParameters = (obj: any): Array<string> => {
   return parameters;
 };
 
-export const convertArrayParametersToObject = (arr: Array<string>) => {
+export const convertArrayParametersToObject = (arr: string[]) => {
   let obj: any = {};
   for (let index = 0; index < arr.length; ) {
     obj[arr[index]] = arr[index + 1];

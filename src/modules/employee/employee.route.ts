@@ -26,43 +26,6 @@ const upload = multer({
 
 const router = express.Router();
 
-/**
- *  @swagger
- *  tags:
- *    name: Employee
- *    description: API to manage employee infos
- */
-/**
- *  @swagger
- *  paths:
- *   /employee:
- *     get:
- *       summary: Lists of employees
- *       tags: [employee]
- *       responses:
- *         "200":
- *           description: Lists of employees.
- *           content:
- *             application/json:
- *               schema:
- *                 $ref: '#/components/schemas/employees'
- *     post:
- *       summary: Creates a new book
- *       tags: [Books]
- *       requestBody:
- *         required: true
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/employees'
- *       responses:
- *         "200":
- *           description: The created book.
- *           content:
- *             application/json:
- *               schema:
- *                 $ref: '#/components/schemas/employees'
- */
 router.get("/", employeeController.getEmployees);
 router.get("/:name", employeeController.getEmployee);
 router.post("/", upload.single("file"), employeeController.addEmployees);

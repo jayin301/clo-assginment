@@ -1,5 +1,3 @@
-import client from "../../config/redis";
-import { getTodayFromDateTime } from "../app/helper";
 import getEmployeeModel from "./models/getEmployee";
 import getEmployeesModel from "./models/getEmployees";
 import { IEmployee, IEmployeeCommand } from "./employee.types";
