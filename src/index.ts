@@ -8,6 +8,7 @@ import "./config/mogoose";
 import "./config/redis";
 import { swaggerUi, specs } from "./swagger/swagger";
 import path from "path";
+import { BadRequestError, errorHandler } from "./modules/app/errorHandler";
 
 // configurations
 dotenv.config();
@@ -30,12 +31,11 @@ app.get("/", (req: Request, res: Response) => {
 });
 app.use(base, AppRoutes);
 
-// Start server
 app.listen(port, () => logger.info(`Server is listening on port ${port}!`));
 
 // Handle unhandled promise rejections and exceptions
 process.on("unhandledRejection", (err: any) => {
-  logger.error(err);
+  logger.error(err.message);
 });
 
 process.on("uncaughtException", (err: any) => {
