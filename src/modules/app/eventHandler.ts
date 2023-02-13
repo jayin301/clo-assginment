@@ -12,12 +12,7 @@ enum Commnads {
 
 class EventHandler {
   async getEmployeeRecord(): Promise<IEmployee[]> {
-    const events: any = await client.sendCommand([
-      "XREAD",
-      "STREAMS",
-      "employee_stream",
-      "0-0",
-    ]);
+    const events: any = await client.sMembers("employee_stream");
     if (!events) return [];
     const [_, records] = events[0];
     let employees: IEmployee[] = [];

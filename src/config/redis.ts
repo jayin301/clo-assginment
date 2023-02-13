@@ -10,12 +10,14 @@ const client = createClient({
 });
 
 client.on("error", (err) => logger.info("Redis Client Error", err));
+client.on("end", (msg) => logger.info("Redist Client[END]", msg));
+client.on("reconnecting", (msg) => logger.info("Redist Client[RECONN]", msg));
+client.on("connect", (msg) => logger.info("Redist Client[CONN]", msg));
+client.on("ready", (msg) => logger.info("Redist Client[READY]", msg));
 
 (async () => {
   await client.connect();
   logger.info("Cache is connected and ready");
 })();
 
-client.connect().then();
-
-export default client.v4;
+export default client;
