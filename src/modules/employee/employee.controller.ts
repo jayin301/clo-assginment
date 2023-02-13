@@ -10,6 +10,7 @@ import Papa from "papaparse";
 import * as fs from "fs";
 import logger from "../../config/logger";
 import path from "path";
+import { errorHandler } from "../app/errorHandler";
 
 class EmployeeController {
   async addEmployees(request: Request, response: Response) {
@@ -45,7 +46,16 @@ class EmployeeController {
             });
         }
       } else {
-        employees = payload;
+        const csv: any[] = Papa.parse(payload.employees).data;
+        employees = csv.map((employee) => {
+          const [name, email, tel, joined] = employee;
+          return {
+            name: name,
+            email: email,
+            tel: tel,
+            joined: joined,
+          };
+        });
       }
 
       addEmployeesValidator(employees);
@@ -54,10 +64,7 @@ class EmployeeController {
         message: "Employee successfully added",
       });
     } catch (error: any) {
-      logger.error(error);
-      response.status(500).json({
-        error: error?.message,
-      });
+      errorHandler(error, request, response);
     }
   }
 
@@ -70,17 +77,14 @@ class EmployeeController {
         message: "Employee successfully added",
       });
     } catch (error: any) {
-      logger.error(error);
-      response.status(500).json({
-        error: error?.message,
-      });
+      errorHandler(error, request, response);
     }
   }
 
   async getEmployees(request: Request, response: Response) {
     try {
-      const page = request.query.page;
-      const limit = request.query.pageSize;
+      const page = parseInt(request.query.page as string);
+      const limit = parseInt(request.query.pageSize as string);
       const employees = await getEmployeeModel
         .find()
         .limit(limit)
@@ -90,10 +94,7 @@ class EmployeeController {
         data: employees,
       });
     } catch (error: any) {
-      logger.error(error);
-      response.status(500).json({
-        error: error?.message,
-      });
+      errorHandler(error, request, response);
     }
   }
 
@@ -106,10 +107,7 @@ class EmployeeController {
         data: employee,
       });
     } catch (error: any) {
-      logger.error(error);
-      response.status(500).json({
-        error: error?.message,
-      });
+      errorHandler(error, request, response);
     }
   }
 }

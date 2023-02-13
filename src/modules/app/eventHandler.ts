@@ -38,8 +38,8 @@ class EventHandler {
       await employeeEvent.processEmployee(record);
       const employees = await this.getEmployeeRecord();
       await employeeEvent.updateEmployees(employees);
-    } catch (error) {
-      logger.error(error);
+    } catch (error: any) {
+      logger.error(error?.message);
     }
   }
 }
