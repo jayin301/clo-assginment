@@ -22,11 +22,11 @@ clo assignment
   서버 실행 후 localhost:[port-number]/api-docs 을 통해 접속하시면 api 명세에 대한 정리문서를 확인할 수 있습니다.
 
 + GET /api/employee?page={page}&pageSize={pageSize}
-  +query(selective):
-    +page: 페이지 번호
-    +pageSize: 페이지 크기
-  +permission: allowAny
-  +response: Application/json
+  + query(selective):
+    + page: 페이지 번호
+    + pageSize: 페이지 크기
+  + permission: allowAny
+  + response: Application/json
   ```
   data: [{
     "name": string,
