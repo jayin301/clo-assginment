@@ -4,12 +4,15 @@ import logger from "../config/logger";
 
 dotenv.config();
 
-const MONGO_URI = process.env.MONGO_URI ?? "";
+const MONGO_URI =
+  process.env.NODE_ENV === "test"
+    ? process.env.TEST_MONGO_URI
+    : process.env.MONGO_URI;
 
 mongoose.Promise = global.Promise;
 mongoose.set("strictQuery", false);
 const db = mongoose
-  .connect(MONGO_URI, {
+  .connect(MONGO_URI ?? "", {
     useUnifiedTopology: true,
     useNewUrlParser: true,
   } as mongoose.ConnectOptions)

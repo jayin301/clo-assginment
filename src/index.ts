@@ -6,14 +6,12 @@ import dotenv from "dotenv";
 import AppRoutes from "./modules/app/app.route";
 import "./config/mogoose";
 import "./config/redis";
-import { swaggerUi, specs } from "./swagger/swagger";
+import { swaggerUi } from "./swagger/swagger";
 import path from "path";
-import { BadRequestError, errorHandler } from "./modules/app/errorHandler";
 
 // configurations
 dotenv.config();
 const app: Application = express();
-const port = process.env.PORT || 3000;
 const base: string = process.env.base_url ?? "/api";
 const combined =
   ':remote-addr - :remote-user ":method :url HTTP/:http-version" :status :res[content-length] ":referrer" ":user-agent"';
@@ -31,8 +29,6 @@ app.get("/", (req: Request, res: Response) => {
 });
 app.use(base, AppRoutes);
 
-app.listen(port, () => logger.info(`Server is listening on port ${port}!`));
-
 // Handle unhandled promise rejections and exceptions
 process.on("unhandledRejection", (err: any) => {
   logger.error(err.message);
@@ -41,3 +37,5 @@ process.on("unhandledRejection", (err: any) => {
 process.on("uncaughtException", (err: any) => {
   logger.error(err.message);
 });
+
+export default app;

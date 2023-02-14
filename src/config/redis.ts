@@ -15,9 +15,11 @@ client.on("reconnecting", (msg) => logger.info("Redist Client[RECONN]", msg));
 client.on("connect", (msg) => logger.info("Redist Client[CONN]", msg));
 client.on("ready", (msg) => logger.info("Redist Client[READY]", msg));
 
-(async () => {
-  await client.connect();
-  logger.info("Cache is connected and ready");
-})();
+if (process.env.NODE_ENV !== "test") {
+  (async () => {
+    await client.connect();
+    logger.info("Cache is connected and ready");
+  })();
+}
 
 export default client;
