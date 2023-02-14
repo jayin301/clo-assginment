@@ -14,7 +14,7 @@ clo assignment
     
   + 위의 절차에 따라 .env를 모두 작성한 후 아래의 명령어를 프로젝트 폴더에서 실행하면 서버가 동작합니다.
   ```
-  npm install && npm run start
+  npm install && npx tsc && npm run start
   ```
   
 ## API 명세
