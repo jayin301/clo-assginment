@@ -24,7 +24,7 @@ export const addEmployeeValidator = async (
 
   const isValiateResult: Joi.ValidationResult = schema.validate(requestData);
   if (isValiateResult?.error) {
-    throw new BadRequestError(`${isValiateResult.error?.message}`);
+    throw new BadRequestError(`유효하지 않은 직원 정보 포맷입니다. 확인 후 재시도해주세요.`);
   }
 };
 
