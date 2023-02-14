@@ -71,6 +71,7 @@ class EmployeeController {
 
       return response.json({
         data: employees,
+        page: page,
       });
     } catch (error: any) {
       errorHandler(error, request, response);
