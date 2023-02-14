@@ -8,7 +8,6 @@ import {
 import { AddEmployeeDTO } from "./employee.types";
 import Papa from "papaparse";
 import * as fs from "fs";
-import logger from "../../config/logger";
 import path from "path";
 import { errorHandler } from "../app/errorHandler";
 
@@ -21,20 +20,10 @@ class EmployeeController {
 
       if (file) {
         const ext = path.extname(file.filename);
-
         switch (ext) {
           case ".csv":
             const csvString = fs.readFileSync(file.path, { encoding: "utf8" });
-            const csv: any[] = Papa.parse(csvString).data;
-            employees = csv.map((employee) => {
-              const [name, email, tel, joined] = employee;
-              return {
-                name: name,
-                email: email,
-                tel: tel,
-                joined: joined,
-              };
-            });
+            employees = parseEmployeesWithCSVform(csvString);
             break;
           case ".json":
             const rawData = fs.readFileSync(file.path, { encoding: "utf8" });
@@ -46,19 +35,9 @@ class EmployeeController {
             });
         }
       } else {
-        const csv: any[] = Papa.parse(payload.employees).data;
-        employees = csv.map((employee) => {
-          const [name, email, tel, joined] = employee;
-          return {
-            name: name,
-            email: email,
-            tel: tel,
-            joined: joined,
-          };
-        });
+        employees = parseEmployeesWithCSVform(payload.employees);
       }
-
-      addEmployeesValidator(employees);
+      await addEmployeesValidator(employees);
       await employeeCommandHandler.addEmployees(employees);
       response.status(201).json({
         message: "Employee successfully added",
@@ -110,6 +89,19 @@ class EmployeeController {
       errorHandler(error, request, response);
     }
   }
+}
+
+function parseEmployeesWithCSVform(csvString: string) {
+  const csv: any[] = Papa.parse(csvString).data;
+  return csv.map((employee) => {
+    const [name, email, tel, joined] = employee;
+    return {
+      name: name,
+      email: email,
+      tel: tel,
+      joined: joined,
+    };
+  });
 }
 
 export default new EmployeeController();
