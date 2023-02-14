@@ -52,20 +52,20 @@ clo assignment
   ```
 
 + POST /api/employee
-  + 1) 공통 세팅
+  1) 공통 세팅
     - api 중 이름을 통한 검색 기능이 있으므로 name을 unique한 parameter로 설정했습니다.
     - 입력한 정보 중 이미 등록된 이름이 있을 경우 400 bad request를 돌려줍니다.
     - 입력한 정보 중 인적사항(이름, 이메일, 전화번호, 가입한 날짜) 중 하나가 누락되어있을 경우 400 bad request를 돌려줍니다.
     - 400 bad request error를 돌려보낸 경우 같이 등록된 이름들도 저장되지 않습니다.
-  + 2) csv 파일 등록
+  2) csv 파일 등록
     - multipart/form - file 을 통해 csv 파일을 틍록시 local의 uploads 파일에 파일을 저장한 후 이를 불러와 데이터를 파싱한 후 DB에 적합한 형태로 업로드합니다.
     - response: 201 created
     
-  + 3) json 파일 등록
+  3) json 파일 등록
     - multipart/form - file 을 통해 csv 파일 등록시 local의 uploads 파일에 파일을 저장한 후 이를 불러와 데이터를 파싱한 후 DB에 적합한 형태로 업로드합니다.
     - response: 201 created
   
-  + 4) plain text 입력
+  4) plain text 입력
     - application/json - { employees: "plain-text"} 의 형태로 payload를 받아와 json의 형태로 파싱한 후 DB에 적합한 형태로 업로드합니다. textarea에서 입력받은 값은 employees라는 key 값에 저장하여 전달되어야 제대로 동작합니다.
     - body:
     ```
@@ -74,7 +74,7 @@ clo assignment
     }
     ```
     - response: 201 created
-  + 5) 이외의 확장자로 파일을 업로드하는 경우
+  5) 이외의 확장자로 파일을 업로드하는 경우
     - response 403:Forbidden 를 되돌려줍니다.
 
   
