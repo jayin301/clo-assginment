@@ -9,7 +9,8 @@ info:
   license:
     name: MIT
 servers:
-  - url: http://localhost:8888/
+  - url: http://localhost:${port}/
+  
 tags:
 - name: "employee"
   description: "employee info"
@@ -17,7 +18,29 @@ tags:
 schemes:
 - "https"
 basePath: './dist'
+
 paths:
+  /api/employee/{name}:
+    get:
+      tags:
+      - "employee"
+      summary: "Get employee info"
+      desciprion: ""
+      parameters:
+        - name: name
+          in: path
+          required: true
+          desciption: target employee name
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 유저 조회 성공
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee'
+
   /api/employee:
     get:
       tags:
@@ -59,24 +82,31 @@ paths:
         '201':
           description: Created
 
-  /api/employee/{name}:
-    get:
-      tags:
-      - "employee"
-      summary: "Get employee info"
-      desciprion: ""
-      parameters:
-        - name: name
-          in: path
-          required: true
-          desciption: target employee name
-          schema:
-            type: string
-      responses:
-        '200':
-          description: 유저 조회 성공
-          content:
-            application/json:
-              schema:
-                type: object
+components:
+  schemas:
+    Employee:
+      type: object
+      required:
+        - name
+        - email
+        - tel
+        - joined
+      properties:
+        name:
+          type: string
+          description: employee name
+        email:
+          type: string
+          description: employee email
+        tel:
+          type: string
+          description: employee telephone number
+        joined:
+          type: string
+          description: employee joined date
+        example:
+          name: 김철수
+          email: charles@clovf.com
+          tel: 01075312468
+          joined: 2018.03.07
 
