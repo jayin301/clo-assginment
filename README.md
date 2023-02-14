@@ -66,7 +66,8 @@ clo assignment
     - response: 201 created
   
   4) plain text 입력
-    - application/json - { employees: "plain-text"} 의 형태로 payload를 받아와 json의 형태로 파싱한 후 DB에 적합한 형태로 업로드합니다. textarea에서 입력받은 값은 employees라는 key 값에 저장하여 전달되어야 제대로 동작합니다.
+    - application/json - { employees: "plain-text"} 의 형태로 payload를 받아와 json의 형태로 파싱한 후 DB에 적합한 형태로 업로드합니다. textarea에서 입력받은 값은 employees라는 key 값에 저장하여 전달되어야 제대로 동작합니다. 
+    - plain text 는 csv와 동일한 형식으로 입력되어야하며, 공백은 허용하지 않습니다.
     - body:
     ```
     {
