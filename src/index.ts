@@ -5,8 +5,8 @@ import YAML from "yamljs";
 import dotenv from "dotenv";
 import AppRoutes from "./modules/app/app.route";
 import "./config/mogoose";
-import { swaggerUi } from "./swagger/swagger";
 import path from "path";
+import swaggerUi from "swagger-ui-express";
 
 // configurations
 dotenv.config();

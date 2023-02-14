@@ -31,6 +31,5 @@ export const addEmployeeValidator = async (
 export const addEmployeesValidator = async (
   requestData: AddEmployeeDTO[]
 ): Promise<void> => {
-  logger.info(requestData);
   await Promise.all(requestData.map((data) => addEmployeeValidator(data)));
 };
