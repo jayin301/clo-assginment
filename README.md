@@ -39,9 +39,9 @@ clo assignment
   ```
 
 + GET /api/employee/{name}
-  - 존재하지 않을 경우 빈 데이터를 돌려줍니다.
-  permission: allowAny
-  response: Application/json
+  + 존재하지 않을 경우 빈 데이터를 돌려줍니다.
+  + permission: allowAny
+  + response: Application/json
   ```
   data: {
     "name": string,
