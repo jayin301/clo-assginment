@@ -17,7 +17,6 @@ class EmployeeCommandHandler {
       joined,
       command: "add",
     };
-    await client.sAdd("employee_stream", JSON.stringify(employeeData));
     eventHandler.employeeHandler(employeeData);
   }
 

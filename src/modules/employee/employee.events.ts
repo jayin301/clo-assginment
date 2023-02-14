@@ -1,5 +1,4 @@
 import getEmployeeModel from "./models/getEmployee";
-import getEmployeesModel from "./models/getEmployees";
 import { IEmployee, IEmployeeCommand } from "./employee.types";
 
 enum Commnads {
@@ -17,20 +16,6 @@ class employeeEventHandler {
           joined: record.joined,
         }).save();
         break;
-    }
-  }
-
-  async updateEmployees(employees: Array<IEmployee>) {
-    const allEmployees = await getEmployeesModel.findOne({});
-    if (allEmployees) {
-      allEmployees.employees = employees;
-      allEmployees.noOfEmployee = employees.length;
-      await allEmployees.save();
-    } else {
-      await new getEmployeesModel({
-        employees,
-        noOfEmployee: employees.length,
-      }).save();
     }
   }
 }
