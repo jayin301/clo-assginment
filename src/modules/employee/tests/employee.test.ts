@@ -3,12 +3,10 @@ import request from "supertest";
 import app from "../../..";
 import dotenv from "dotenv";
 dotenv.config();
-
 beforeAll(async () => {
   const Employee = mongoose.model("Employee");
-  await Employee.deleteMany();
 });
-afterAll(async () => {
+afterEach(async () => {
   const Employee = mongoose.model("Employee");
   await Employee.deleteMany();
 });
@@ -41,19 +39,19 @@ describe("POST /employee/single", () => {
   });
 });
 
-describe("POST /employee", () => {
-  test("add multiple employees from plain-text", (done) => {
+describe("POST /employee/single", () => {
+  test("add single employee to DB and get from name", (done) => {
     request(app)
       .post("/api/employee")
       .send({
         employees:
-          "김철수,charles@clovf.com,01075312468,2018.03.07\n박영희,matilda@clovf.com,01087654321,2021.04.28\n홍길동,kildong.hong@clovf.com,01012345678,2015.08.15",
+          "김철수,charles@clovf.com,01075312468,2018.03.07\n박영희,matilda@clovf.com,01087654321,2021.04.28",
       })
       .then(() => {
         request(app)
-          .get("api/employee")
+          .get("/api/employee")
           .then((response) => {
-            expect(response.body.data.length).toBe(3);
+            expect(response.body.data.length).toBe(2);
           });
       });
     done();
