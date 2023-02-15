@@ -2,7 +2,7 @@
 clo assignment
 
 
-## Buid Setting
+## Build Setting
 + .env 작성
   + .env.template를 참고하여 db 연결 및 서버를 위한 변수들을 채워주세요. 
 
