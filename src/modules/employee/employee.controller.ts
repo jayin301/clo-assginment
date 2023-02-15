@@ -35,7 +35,7 @@ class EmployeeController {
             });
         }
       } else {
-        const csvString = payload.employee.replaceAll(" ", "");
+        const csvString = payload.employees.replaceAll(" ", "");
         employees = parseEmployeesWithCSVform(csvString);
       }
       await addEmployeesValidator(employees);
